@@ -1,0 +1,25 @@
+﻿using Microsoft.Extensions.Logging;
+
+namespace Facturacion.Dominio.General
+{
+    public class RespuestaUtilitario
+    {
+        public static async Task<Respuesta> GenerarRespuestaDto<TResult>(ILogger logger, Func<Task<TResult>> metodo)
+        {
+            Respuesta respuestaDto = new();
+            try
+            {
+                respuestaDto.Data = await metodo();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                respuestaDto.Codigo = ex.HResult;
+                respuestaDto.Exito = false;
+                respuestaDto.Mensaje = ex.ToString();
+                respuestaDto.Errors = new List<string> { ex.Message };
+            }
+            return respuestaDto;
+        }
+    }
+}
