@@ -1,5 +1,8 @@
 ﻿namespace Facturacion.Dominio.General
 {
+    /// <summary>
+    /// Modelo generico con los datos de la respuesta
+    /// </summary>
     public class Respuesta
     {
         public bool Exito { get; set; } = true;

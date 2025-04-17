@@ -14,6 +14,11 @@ namespace Facturacion.Api.Controllers
         private readonly IMediator _mediator;
         protected Respuesta respuestaDto;
 
+        /// <summary>
+        /// Constructor para inicializar la inyeccion de dependencia 
+        /// </summary>
+        /// <param name="logger">Interfaz para registro de logs</param>
+        /// <param name="mediator">Interfaz para la inyeccion de la libreria</param>
         public UsuarioController(ILogger<UsuarioController> logger, IMediator mediator)
         {
             _logger = logger;
@@ -21,6 +26,10 @@ namespace Facturacion.Api.Controllers
             respuestaDto = new Respuesta();
         }
 
+        /// <summary>
+        /// Metodo para insertar un usuario
+        /// </summary>
+        /// <param name="usuario">Objeto con los datos del usuario</param>
         [HttpPost]
         [Route("Crear")]
         public async Task<IActionResult> CrearUsuario(UsuarioDto usuario)

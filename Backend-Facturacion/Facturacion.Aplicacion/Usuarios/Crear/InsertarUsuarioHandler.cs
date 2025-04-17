@@ -8,11 +8,20 @@ namespace Facturacion.Aplicacion.Usuarios.Crear
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
 
+        /// <summary>
+        /// Constructor de la clase para inyectar la interfaz del servicio
+        /// </summary>
+        /// <param name="usuarioRepositorio">Interfaz que implementa el servicio de usuario</param>
         public InsertarUsuarioHandler(IUsuarioRepositorio usuarioRepositorio)
         {
             _usuarioRepositorio = usuarioRepositorio;
         }
 
+        /// <summary>
+        /// Implementacion para insertar el usuario
+        /// </summary>
+        /// <param name="request">Objeto con los datos del usuario</param>
+        /// <param name="cancellationToken">Token de cancelacion del proceso</param>
         public  async Task<Unit> Handle(InsertarUsuario request, CancellationToken cancellationToken)
         {
            bool respuesta = await _usuarioRepositorio.InsertarUsuarioAsync(new UsuarioModelo
