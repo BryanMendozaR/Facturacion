@@ -1,3 +1,4 @@
+using Facturacion.Aplicacion.Usuarios.Actualizar;
 using Facturacion.Aplicacion.Usuarios.Consultar;
 using Facturacion.Aplicacion.Usuarios.Crear;
 using Facturacion.Dominio.Dto;
@@ -49,6 +50,19 @@ namespace Facturacion.Api.Controllers
         public async Task<IActionResult> ConsultarUsuarios()
         {
             respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new ConsultarUsuario()));
+            return Ok(respuestaDto);
+
+        }
+
+        /// <summary>
+        /// Metodo para actualizar los datos del usuario
+        /// </summary>
+        /// <returns>Objeto con la lista de los usuarios</returns>
+        [HttpPut]
+        [Route("Actualizar/Datos")]
+        public async Task<IActionResult> ActualizarDatosUsuarios(ActualizarDatosUsuarioDto datosUsuario)
+        {
+            respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new ActualizarDatosUsuario(datosUsuario)));
             return Ok(respuestaDto);
 
         }
