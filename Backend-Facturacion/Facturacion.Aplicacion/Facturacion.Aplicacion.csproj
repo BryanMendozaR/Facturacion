@@ -16,11 +16,4 @@
     <ProjectReference Include="..\Facturacion.Infraestructura\Facturacion.Infraestructura.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Clientes\Crear\" />
-    <Folder Include="Clientes\Actualizar\" />
-    <Folder Include="Clientes\Eliminar\" />
-    <Folder Include="Clientes\Consultar\" />
-  </ItemGroup>
-
 </Project>
