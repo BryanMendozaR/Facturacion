@@ -59,11 +59,11 @@ namespace Facturacion.Infraestructura.Datos.Repositorios
         /// </summary>
         /// <param name="datosUsuario">Objeto con los datos del usuario</param>
         /// <returns>Booleano para comprobar la modificacion del usuario</returns>
-        public async Task<bool> ActualizarCalveAsync(UsuarioModelo datosUsuario)
+        public async Task<bool> ActualizarClaveAsync(int codigo, string clave)
         {
             DynamicParameters parameters = new();
-            parameters.Add("@i_codigo_usuario", datosUsuario.Codigo);
-            parameters.Add("@i_clave", datosUsuario.Clave);
+            parameters.Add("@i_codigo_usuario", codigo);
+            parameters.Add("@i_clave", clave);
             parameters.Add("@i_accion", 0);
 
             return await _dbConnection.ExecuteAsync("spu_usuario", parameters, commandType: CommandType.StoredProcedure) > 0;

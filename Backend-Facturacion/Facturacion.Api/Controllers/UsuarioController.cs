@@ -31,7 +31,6 @@ namespace Facturacion.Api.Controllers
         /// <summary>
         /// Metodo para insertar un usuario
         /// </summary>
-        /// <param name="usuario">Objeto con los datos del usuario</param>
         [HttpPost]
         [Route("Crear")]
         public async Task<IActionResult> CrearUsuario(CrearUsuarioDto usuario)
@@ -57,12 +56,23 @@ namespace Facturacion.Api.Controllers
         /// <summary>
         /// Metodo para actualizar los datos del usuario
         /// </summary>
-        /// <returns>Objeto con la lista de los usuarios</returns>
         [HttpPut]
         [Route("Actualizar/Datos")]
-        public async Task<IActionResult> ActualizarDatosUsuarios(ActualizarDatosUsuarioDto datosUsuario)
+        public async Task<IActionResult> ActualizarDatosUsuario(ActualizarDatosUsuarioDto datosUsuario)
         {
             respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new ActualizarDatosUsuario(datosUsuario)));
+            return Ok(respuestaDto);
+
+        }
+
+        /// <summary>
+        /// Metodo para actualizar la clave del usuario
+        /// </summary>
+        [HttpPut]
+        [Route("Actualizar/Clave")]
+        public async Task<IActionResult> ActualizarCalveUsuario(ActualizarClaveUsuarioDto datosUsuario)
+        {
+            respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new ActualizarClaveUsuario(datosUsuario)));
             return Ok(respuestaDto);
 
         }

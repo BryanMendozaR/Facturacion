@@ -26,7 +26,7 @@ namespace Facturacion.Infraestructura.Datos.IRepositorios
         /// </summary>
         /// <param name="datosUsuario">Objeto con los datos del usuario</param>
         /// <returns>Booleano para comprobar la modificacion del usuario</returns>
-        Task<bool> ActualizarCalveAsync(UsuarioModelo datosUsuario);
+        Task<bool> ActualizarClaveAsync(int codigo, string clave);
 
         /// <summary>
         /// Metodo para eliminar el usuario
