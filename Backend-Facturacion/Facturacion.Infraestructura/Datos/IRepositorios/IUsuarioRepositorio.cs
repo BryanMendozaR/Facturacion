@@ -40,5 +40,11 @@ namespace Facturacion.Infraestructura.Datos.IRepositorios
         /// </summary>
         /// <returns>Lista con todos los usuarios</returns>
         Task<IList<UsuarioModelo>> ConsultarAsync();
+
+        /// <summary>
+        /// Metodo para consultar usuarios por nombre
+        /// </summary>
+        /// <returns>Lista con todos los usuarios</returns>
+        Task<IList<UsuarioModelo>> ConsultarPorNombreAsync(string nombre)
     }
 }

@@ -17,6 +17,7 @@ namespace Facturacion.Infraestructura.Configuracion
         {
             services.AddScoped<IDbConnection>(sp => new SqlConnection(connectionString));
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
         }
     }
 }

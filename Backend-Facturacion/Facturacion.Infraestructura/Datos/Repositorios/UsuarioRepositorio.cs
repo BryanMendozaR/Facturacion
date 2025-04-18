@@ -92,5 +92,18 @@ namespace Facturacion.Infraestructura.Datos.Repositorios
             IEnumerable<UsuarioModelo> usuarios =  await _dbConnection.QueryAsync<UsuarioModelo>("sps_usuario", new DynamicParameters(), commandType: CommandType.StoredProcedure);
             return usuarios.ToList();
         }
+
+        /// <summary>
+        /// Metodo para consultar usuarios por nombre
+        /// </summary>
+        /// <returns>Lista con todos los usuarios</returns>
+        public async Task<IList<UsuarioModelo>> ConsultarPorNombreAsync(string nombre)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@i_nombre", nombre);
+
+            IEnumerable<UsuarioModelo> usuarios = await _dbConnection.QueryAsync<UsuarioModelo>("sps_usuario", parameters, commandType: CommandType.StoredProcedure);
+            return usuarios.ToList();
+        }
     }
 }
