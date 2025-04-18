@@ -24,7 +24,7 @@ namespace Facturacion.Aplicacion.Usuarios.Crear
         /// <param name="cancellationToken">Token de cancelacion del proceso</param>
         public  async Task<Unit> Handle(InsertarUsuario request, CancellationToken cancellationToken)
         {
-           bool respuesta = await _usuarioRepositorio.InsertarUsuarioAsync(new UsuarioModelo
+           bool respuesta = await _usuarioRepositorio.InsertarAsync(new UsuarioModelo
             {
                 Nombre = request.Nombre,
                 Usuario = request.Usuario,

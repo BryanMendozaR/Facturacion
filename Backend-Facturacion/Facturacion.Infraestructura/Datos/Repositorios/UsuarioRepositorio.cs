@@ -26,17 +26,71 @@ namespace Facturacion.Infraestructura.Datos.Repositorios
         /// </summary>
         /// <param name="datosUsuario">Objeto con los datos del usuario</param>
         /// <returns>Booleano para comprobar la insercion del usuario</returns>
-        public async Task<bool> InsertarUsuarioAsync(UsuarioModelo datosUsuario)
+        public async Task<bool> InsertarAsync(UsuarioModelo datosUsuario)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@i_nombre", datosUsuario.Nombre);
             parameters.Add("@i_usuario", datosUsuario.Usuario);
             parameters.Add("@i_correo", datosUsuario.Correo);
             parameters.Add("@i_clave", datosUsuario.Clave);
 
-            int filasAfectadas = await _dbConnection.ExecuteAsync("spi_usuario", parameters, commandType: CommandType.StoredProcedure);
-            return filasAfectadas > 0;
+            return await _dbConnection.ExecuteAsync("spi_usuario", parameters, commandType: CommandType.StoredProcedure) > 0;
         }
 
+        /// <summary>
+        /// Metodo para actualizar los datos del usuario
+        /// </summary>
+        /// <param name="datosUsuario">Objeto con los datos del usuario</param>
+        /// <returns>Booleano para comprobar la modificacion del usuario</returns>
+        public async Task<bool> ActualizarDatosAsync(UsuarioModelo datosUsuario)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@i_codigo_usuario", datosUsuario.Codigo);
+            parameters.Add("@i_nombre", datosUsuario.Nombre);
+            parameters.Add("@i_usuario", datosUsuario.Usuario);
+            parameters.Add("@i_correo", datosUsuario.Correo);
+            parameters.Add("@i_accion", 1);
+
+            return await _dbConnection.ExecuteAsync("spu_usuario", parameters, commandType: CommandType.StoredProcedure) > 0;
+        }
+
+        /// <summary>
+        /// Metodo para actualizar la clave del usuario
+        /// </summary>
+        /// <param name="datosUsuario">Objeto con los datos del usuario</param>
+        /// <returns>Booleano para comprobar la modificacion del usuario</returns>
+        public async Task<bool> ActualizarCalveAsync(UsuarioModelo datosUsuario)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@i_codigo_usuario", datosUsuario.Codigo);
+            parameters.Add("@i_clave", datosUsuario.Clave);
+            parameters.Add("@i_accion", 0);
+
+            return await _dbConnection.ExecuteAsync("spu_usuario", parameters, commandType: CommandType.StoredProcedure) > 0;
+        }
+
+        /// <summary>
+        /// Metodo para eliminar el usuario
+        /// </summary>
+        /// <param name="codigoUsuario">Codigo del usuario a eliminar</param>
+        /// <returns>Booleano para comprobar la eliminacion del usuario</returns>
+        public async Task<bool> EliminarAsync(int codigoUsuario)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@i_codigo_usuario", codigoUsuario);
+
+            return await _dbConnection.ExecuteAsync("spd_usuario", parameters, commandType: CommandType.StoredProcedure) > 0;
+             
+        }
+
+        /// <summary>
+        /// Metodo para consultar todos los usuarios
+        /// </summary>
+        /// <returns>Lista con todos los usuarios</returns>
+        public async Task<IList<UsuarioModelo>> ConsultarAsync()
+        {
+            IEnumerable<UsuarioModelo> usuarios =  await _dbConnection.QueryAsync<UsuarioModelo>("sps_usuario", new DynamicParameters(), commandType: CommandType.StoredProcedure);
+            return usuarios.ToList();
+        }
     }
 }

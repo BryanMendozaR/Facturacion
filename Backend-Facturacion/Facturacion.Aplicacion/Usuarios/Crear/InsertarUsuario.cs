@@ -10,7 +10,7 @@ namespace Facturacion.Aplicacion.Usuarios.Crear
         public string Clave { get; set; }
         public string Correo { get; set; }
 
-        public InsertarUsuario(UsuarioDto usuario)
+        public InsertarUsuario(CrearUsuarioDto usuario)
         {
             Nombre = usuario.Nombre;
             Usuario = usuario.Usuario;

@@ -1,3 +1,4 @@
+using Facturacion.Aplicacion.Usuarios.Consultar;
 using Facturacion.Aplicacion.Usuarios.Crear;
 using Facturacion.Dominio.Dto;
 using Facturacion.Dominio.General;
@@ -32,9 +33,22 @@ namespace Facturacion.Api.Controllers
         /// <param name="usuario">Objeto con los datos del usuario</param>
         [HttpPost]
         [Route("Crear")]
-        public async Task<IActionResult> CrearUsuario(UsuarioDto usuario)
+        public async Task<IActionResult> CrearUsuario(CrearUsuarioDto usuario)
         {
             respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new InsertarUsuario(usuario)));
+            return Ok(respuestaDto);
+
+        }
+
+        /// <summary>
+        /// Metodo para consultar los usuarios
+        /// </summary>
+        /// <returns>Objeto con la lista de los usuarios</returns>
+        [HttpGet]
+        [Route("Consultar")]
+        public async Task<IActionResult> ConsultarUsuarios()
+        {
+            respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new ConsultarUsuario()));
             return Ok(respuestaDto);
 
         }

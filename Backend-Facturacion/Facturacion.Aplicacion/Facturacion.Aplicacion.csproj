@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Usuarios\Eliminar\" />
     <Folder Include="Usuarios\Actualizar\" />
-    <Folder Include="Usuarios\Consultar\" />
   </ItemGroup>
 
   <ItemGroup>
