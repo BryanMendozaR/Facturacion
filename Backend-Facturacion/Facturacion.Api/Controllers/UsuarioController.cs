@@ -95,7 +95,7 @@ namespace Facturacion.Api.Controllers
         /// </summary>
         /// <returns>Objeto con la lista de los usuarios</returns>
         [HttpGet]
-        [Route("Filtrar/Nombre/{nombre}")]
+        [Route("Filtrar/{nombre}")]
         public async Task<IActionResult> FiltrarUsuarios([FromRoute] string nombre)
         {
             respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new FiltrarUsuario(nombre)));

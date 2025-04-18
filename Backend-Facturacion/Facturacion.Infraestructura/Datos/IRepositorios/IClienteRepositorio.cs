@@ -2,6 +2,9 @@
 
 namespace Facturacion.Infraestructura.Datos.IRepositorios
 {
+    /// <summary>
+    /// Interfaz para gestion de clientes
+    /// </summary>
     public interface IClienteRepositorio
     {
         /// <summary>

@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Facturacion.Infraestructura\Facturacion.Infraestructura.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Productos\Consultar\" />
+  </ItemGroup>
+
 </Project>
