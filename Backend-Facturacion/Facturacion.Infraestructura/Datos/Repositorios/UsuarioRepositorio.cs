@@ -92,10 +92,10 @@ namespace Facturacion.Infraestructura.Datos.Repositorios
             DynamicParameters parameters = new();
             parameters.Add("@i_numero_registros", numeroRegistro);
             parameters.Add("@i_tamanio_pagina", tamanoPagina);
-            parameters.Add("@total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("@o_total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-            IEnumerable<UsuarioModelo> usuarios =  await _dbConnection.QueryAsync<UsuarioModelo>("sps_usuario", new DynamicParameters(), commandType: CommandType.StoredProcedure);
-            int totalRegistros = parameters.Get<int>("@total_registros");
+            IEnumerable<UsuarioModelo> usuarios =  await _dbConnection.QueryAsync<UsuarioModelo>("sps_usuario", parameters, commandType: CommandType.StoredProcedure);
+            int totalRegistros = parameters.Get<int>("@o_total_registros");
 
             return new RespuestaPaginadaModelo<UsuarioModelo>
             {
@@ -119,10 +119,10 @@ namespace Facturacion.Infraestructura.Datos.Repositorios
             parameters.Add("@i_nombre", nombre);
             parameters.Add("@i_numero_registros", numeroRegistro);
             parameters.Add("@i_tamanio_pagina", tamanoPagina);
-            parameters.Add("@total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("@o_total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             IEnumerable<UsuarioModelo> usuarios = await _dbConnection.QueryAsync<UsuarioModelo>("sps_usuario", parameters, commandType: CommandType.StoredProcedure);
-            int totalRegistros = parameters.Get<int>("@total_registros");
+            int totalRegistros = parameters.Get<int>("@o_total_registros");
             return new RespuestaPaginadaModelo<UsuarioModelo>
             {
                 Datos = usuarios.ToList(),

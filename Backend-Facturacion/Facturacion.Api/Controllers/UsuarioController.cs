@@ -46,10 +46,10 @@ namespace Facturacion.Api.Controllers
         /// </summary>
         /// <returns>Objeto con la lista de los usuarios</returns>
         [HttpGet]
-        [Route("Consultar")]
-        public async Task<IActionResult> ConsultarUsuarios()
+        [Route("Consultar/{pagina}")]
+        public async Task<IActionResult> ConsultarUsuarios([FromRoute] int pagina)
         {
-            respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new ConsultarUsuario()));
+            respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new ConsultarUsuario(pagina)));
             return Ok(respuestaDto);
 
         }
@@ -95,10 +95,10 @@ namespace Facturacion.Api.Controllers
         /// </summary>
         /// <returns>Objeto con la lista de los usuarios</returns>
         [HttpGet]
-        [Route("Filtrar/{nombre}")]
-        public async Task<IActionResult> FiltrarUsuarios([FromRoute] string nombre)
+        [Route("Filtrar/{nombre}/{pagina}")]
+        public async Task<IActionResult> FiltrarUsuarios([FromRoute] string nombre, int pagina)
         {
-            respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new FiltrarUsuario(nombre)));
+            respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new FiltrarUsuario(nombre, pagina)));
             return Ok(respuestaDto);
 
         }

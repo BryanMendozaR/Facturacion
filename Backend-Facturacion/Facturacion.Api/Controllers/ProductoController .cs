@@ -46,10 +46,10 @@ namespace Facturacion.Api.Controllers
         /// </summary>
         /// <returns>Objeto con la lista de los usuarios</returns>
         [HttpGet]
-        [Route("Consultar")]
-        public async Task<IActionResult> ConsultarProducto()
+        [Route("Consultar/{pagina}")]
+        public async Task<IActionResult> ConsultarProducto([FromRoute] int pagina)
         {
-            respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new ConsultarProducto()));
+            respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new ConsultarProducto(pagina)));
             return Ok(respuestaDto);
 
         }

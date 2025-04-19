@@ -75,10 +75,10 @@ namespace Facturacion.Infraestructura.Datos.Repositorios
             DynamicParameters parameters = new();
             parameters.Add("@i_numero_registros", numeroRegistro);
             parameters.Add("@i_tamanio_pagina", tamanoPagina);
-            parameters.Add("@total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("@o_total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             IEnumerable<ProductoModelo> productos = await _dbConnection.QueryAsync<ProductoModelo>("sps_producto", parameters, commandType: CommandType.StoredProcedure);
-            int totalRegistros = parameters.Get<int>("@total_registros");
+            int totalRegistros = parameters.Get<int>("@o_total_registros");
 
             return new RespuestaPaginadaModelo<ProductoModelo>
             {
@@ -102,10 +102,10 @@ namespace Facturacion.Infraestructura.Datos.Repositorios
             parameters.Add("@i_nombre", filtro);
             parameters.Add("@i_numero_registros", numeroRegistro);
             parameters.Add("@i_tamanio_pagina", tamanoPagina);
-            parameters.Add("@total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("@o_total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             IEnumerable<ProductoModelo> productos = await _dbConnection.QueryAsync<ProductoModelo>("sps_producto", parameters, commandType: CommandType.StoredProcedure);
-            int totalRegistros = parameters.Get<int>("@total_registros");
+            int totalRegistros = parameters.Get<int>("@o_total_registros");
 
             return new RespuestaPaginadaModelo<ProductoModelo>
             {
