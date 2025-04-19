@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Facturacion.Aplicacion.Usuarios.Consultar
 {
-    internal class ConsultarUsuarioHandler : IRequestHandler<ConsultarUsuario, IList<UsuarioModelo>>
+    internal class ConsultarUsuarioHandler : IRequestHandler<ConsultarUsuario, RespuestaPaginadaModelo<UsuarioModelo>>
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
 
@@ -23,9 +23,9 @@ namespace Facturacion.Aplicacion.Usuarios.Consultar
         /// <param name="request">Objeto con los datos del usuario</param>
         /// <param name="cancellationToken">Token de cancelacion del proceso</param>
         /// <returns>Lista con los datos de los usuarios</returns>
-        public async Task<IList<UsuarioModelo>> Handle(ConsultarUsuario request, CancellationToken cancellationToken)
+        public async Task<RespuestaPaginadaModelo<UsuarioModelo>> Handle(ConsultarUsuario request, CancellationToken cancellationToken)
         {
-            return await _usuarioRepositorio.ConsultarAsync();
+            return await _usuarioRepositorio.ConsultarAsync(request.Pagina, request.TamanoPagina);
         }
     }
 }

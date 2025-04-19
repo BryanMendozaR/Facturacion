@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Facturacion.Aplicacion.Clientes.Consultar
 {
-    internal class ConsultarClienteHandler : IRequestHandler<ConsultarCliente, IList<ClienteModelo>>
+    internal class ConsultarClienteHandler : IRequestHandler<ConsultarCliente, RespuestaPaginadaModelo<ClienteModelo>>
     {
         private readonly IClienteRepositorio _clienteRepositorio;
 
@@ -20,11 +20,11 @@ namespace Facturacion.Aplicacion.Clientes.Consultar
         /// <summary>
         /// Implementacion para consultar los clientes
         /// </summary>
-        /// <param name="request">Objeto con los datos del cliente</param>
+        /// <param name="request">Objeto con las configuraciones para la paginacion</param>
         /// <param name="cancellationToken">Token de cancelacion del proceso</param>
-        public async Task<IList<ClienteModelo>> Handle(ConsultarCliente request, CancellationToken cancellationToken)
+        public async Task<RespuestaPaginadaModelo<ClienteModelo>> Handle(ConsultarCliente request, CancellationToken cancellationToken)
         {
-            return await _clienteRepositorio.ConsultarAsync();
+            return await _clienteRepositorio.ConsultarAsync(request.Pagina, request.TamanoPagina);
         }
     }
 }

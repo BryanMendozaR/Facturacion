@@ -87,23 +87,49 @@ namespace Facturacion.Infraestructura.Datos.Repositorios
         /// Metodo para consultar todos los usuarios
         /// </summary>
         /// <returns>Lista con todos los usuarios</returns>
-        public async Task<IList<UsuarioModelo>> ConsultarAsync()
+        public async Task<RespuestaPaginadaModelo<UsuarioModelo>> ConsultarAsync(int numeroRegistro, int tamanoPagina)
         {
+            DynamicParameters parameters = new();
+            parameters.Add("@i_numero_registros", numeroRegistro);
+            parameters.Add("@i_tamanio_pagina", tamanoPagina);
+            parameters.Add("@total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
             IEnumerable<UsuarioModelo> usuarios =  await _dbConnection.QueryAsync<UsuarioModelo>("sps_usuario", new DynamicParameters(), commandType: CommandType.StoredProcedure);
-            return usuarios.ToList();
+            int totalRegistros = parameters.Get<int>("@total_registros");
+
+            return new RespuestaPaginadaModelo<UsuarioModelo>
+            {
+                Datos = usuarios.ToList(),
+                TotalRegistros = totalRegistros,
+                PaginaActual = numeroRegistro,
+                TamanoPagina = tamanoPagina
+            };
         }
 
         /// <summary>
         /// Metodo para consultar usuarios por nombre
         /// </summary>
+        /// <param name="nombre">Parametro de filtro</param>
+        /// <param name="numeroRegistro">Numero de registro en la pagina</param>
+        /// <param name="tamanoPagina">Tamano de la pagina</param>
         /// <returns>Lista con todos los usuarios</returns>
-        public async Task<IList<UsuarioModelo>> ConsultarPorNombreAsync(string nombre)
+        public async Task<RespuestaPaginadaModelo<UsuarioModelo>> ConsultarPorNombreAsync(string nombre, int numeroRegistro, int tamanoPagina)
         {
             DynamicParameters parameters = new();
             parameters.Add("@i_nombre", nombre);
+            parameters.Add("@i_numero_registros", numeroRegistro);
+            parameters.Add("@i_tamanio_pagina", tamanoPagina);
+            parameters.Add("@total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             IEnumerable<UsuarioModelo> usuarios = await _dbConnection.QueryAsync<UsuarioModelo>("sps_usuario", parameters, commandType: CommandType.StoredProcedure);
-            return usuarios.ToList();
+            int totalRegistros = parameters.Get<int>("@total_registros");
+            return new RespuestaPaginadaModelo<UsuarioModelo>
+            {
+                Datos = usuarios.ToList(),
+                TotalRegistros = totalRegistros,
+                PaginaActual = numeroRegistro,
+                TamanoPagina = tamanoPagina
+            };
         }
     }
 }

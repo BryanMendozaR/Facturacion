@@ -31,13 +31,18 @@ namespace Facturacion.Infraestructura.Datos.IRepositorios
         /// <summary>
         /// Metodo para consultar todos los clientes
         /// </summary>
+        /// <param name="numeroRegistro">Numero de registro en la pagina</param>
+        /// <param name="tamanoPagina">Tamano de la pagina</param>
         /// <returns>Lista con todos los clientes</returns>
-        Task<IList<ClienteModelo>> ConsultarAsync();
+        Task<RespuestaPaginadaModelo<ClienteModelo>> ConsultarAsync(int numeroRegistro, int tamanoPagina);
 
         /// <summary>
         /// Metodo para consultar clientes segun el nombre
         /// </summary>
+        /// <param name="nombre">Parametro de filtro</param>
+        /// <param name="numeroRegistro">Numero de registro en la pagina</param>
+        /// <param name="tamanoPagina">Tamano de la pagina</param>
         /// <returns>Lista filtrada de todos los clientes</returns>
-        Task<IList<ClienteModelo>> ConsultarPorNombreAsync(string nombre);
+        Task<RespuestaPaginadaModelo<ClienteModelo>> ConsultarPorNombreAsync(string nombre, int numeroRegistro, int tamanoPagina);
     }
 }

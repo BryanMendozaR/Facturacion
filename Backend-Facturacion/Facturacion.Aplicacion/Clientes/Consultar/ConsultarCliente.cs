@@ -3,7 +3,15 @@ using MediatR;
 
 namespace Facturacion.Aplicacion.Clientes.Consultar
 {
-    public class ConsultarCliente : IRequest<IList<ClienteModelo>>
+    public class ConsultarCliente : IRequest<RespuestaPaginadaModelo<ClienteModelo>>
     {
+        public int Pagina { get; set; }
+        public int TamanoPagina { get; set; }
+
+        public ConsultarCliente(int pagina = 1, int tamanoPagina = 10)
+        {
+            Pagina = pagina;
+            TamanoPagina = tamanoPagina;
+        }
     }
 }

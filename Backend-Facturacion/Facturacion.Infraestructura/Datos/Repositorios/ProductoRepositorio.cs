@@ -67,25 +67,53 @@ namespace Facturacion.Infraestructura.Datos.Repositorios
         /// <summary>
         /// Metodo para consultar todos los productos
         /// </summary>
+        /// <param name="numeroRegistro">Numero de registro en la pagina</param>
+        /// <param name="tamanoPagina">Tamano de la pagina</param>
         /// <returns>Lista con todos los productos</returns>
-        public async Task<IList<ProductoModelo>> ConsultarAsync()
+        public async Task<RespuestaPaginadaModelo<ProductoModelo>> ConsultarAsync(int numeroRegistro, int tamanoPagina)
         {
-            IEnumerable<ProductoModelo> productos = await _dbConnection.QueryAsync<ProductoModelo>("sps_producto", new DynamicParameters(), commandType: CommandType.StoredProcedure);
-            return productos.ToList();
+            DynamicParameters parameters = new();
+            parameters.Add("@i_numero_registros", numeroRegistro);
+            parameters.Add("@i_tamanio_pagina", tamanoPagina);
+            parameters.Add("@total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            IEnumerable<ProductoModelo> productos = await _dbConnection.QueryAsync<ProductoModelo>("sps_producto", parameters, commandType: CommandType.StoredProcedure);
+            int totalRegistros = parameters.Get<int>("@total_registros");
+
+            return new RespuestaPaginadaModelo<ProductoModelo>
+            {
+                Datos = productos.ToList(),
+                TotalRegistros = totalRegistros,
+                PaginaActual = numeroRegistro,
+                TamanoPagina = tamanoPagina
+            };
         }
 
         /// <summary>
         /// Metodo para consultar productos segun el nombre
         /// </summary>
         /// <param name="filtro">Parametro de filtro</param>
+        /// <param name="numeroRegistro">Numero de registro en la pagina</param>
+        /// <param name="tamanoPagina">Tamano de la pagina</param>
         /// <returns>Lista filtrada de todos los productos</returns>
-        public async Task<IList<ProductoModelo>> ConsultarFiltroAsync(string filtro)
+        public async Task<RespuestaPaginadaModelo<ProductoModelo>> ConsultarFiltroAsync(string filtro, int numeroRegistro, int tamanoPagina)
         {
             DynamicParameters parameters = new();
             parameters.Add("@i_nombre", filtro);
+            parameters.Add("@i_numero_registros", numeroRegistro);
+            parameters.Add("@i_tamanio_pagina", tamanoPagina);
+            parameters.Add("@total_registros", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             IEnumerable<ProductoModelo> productos = await _dbConnection.QueryAsync<ProductoModelo>("sps_producto", parameters, commandType: CommandType.StoredProcedure);
-            return productos.ToList();
+            int totalRegistros = parameters.Get<int>("@total_registros");
+
+            return new RespuestaPaginadaModelo<ProductoModelo>
+            {
+                Datos = productos.ToList(),
+                TotalRegistros = totalRegistros,
+                PaginaActual = numeroRegistro,
+                TamanoPagina = tamanoPagina
+            };
         }
     }
 }

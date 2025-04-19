@@ -38,13 +38,18 @@ namespace Facturacion.Infraestructura.Datos.IRepositorios
         /// <summary>
         /// Metodo para consultar todos los usuarios
         /// </summary>
+        /// <param name="numeroRegistro">Numero de registro en la pagina</param>
+        /// <param name="tamanoPagina">Tamano de la pagina</param>
         /// <returns>Lista con todos los usuarios</returns>
-        Task<IList<UsuarioModelo>> ConsultarAsync();
+        Task<RespuestaPaginadaModelo<UsuarioModelo>> ConsultarAsync(int numeroRegistro, int tamanoPagina);
 
         /// <summary>
         /// Metodo para consultar usuarios por nombre
         /// </summary>
-        /// <returns>Lista con todos los usuarios</returns>
-        Task<IList<UsuarioModelo>> ConsultarPorNombreAsync(string nombre);
+        /// <param name="nombre">Parametro de filtro</param>
+        /// <param name="numeroRegistro">Numero de registro en la pagina</param>
+        /// <param name="tamanoPagina">Tamano de la pagina</param>
+        /// <returns>Lista de usuarios paginada</returns>
+        Task<RespuestaPaginadaModelo<UsuarioModelo>> ConsultarPorNombreAsync(string nombre, int numeroRegistro, int tamanoPagina);
     }
 }

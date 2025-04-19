@@ -28,14 +28,18 @@ namespace Facturacion.Infraestructura.Datos.IRepositorios
         /// <summary>
         /// Metodo para consultar todos los productos
         /// </summary>
+        /// <param name="numeroRegistro">Numero de registro en la pagina</param>
+        /// <param name="tamanoPagina">Tamano de la pagina</param>
         /// <returns>Lista con todos los productos</returns>
-        Task<IList<ProductoModelo>> ConsultarAsync();
+        Task<RespuestaPaginadaModelo<ProductoModelo>> ConsultarAsync(int numeroRegistro, int tamanoPagina);
 
         /// <summary>
         /// Metodo para consultar productos segun el nombre
         /// </summary>
         /// <param name="filtro">Parametro de filtro</param>
+        /// <param name="numeroRegistro">Numero de registro en la pagina</param>
+        /// <param name="tamanoPagina">Tamano de la pagina</param>
         /// <returns>Lista filtrada de todos los productos</returns>
-        Task<IList<ProductoModelo>> ConsultarFiltroAsync(string filtro);
+        Task<RespuestaPaginadaModelo<ProductoModelo>> ConsultarFiltroAsync(string filtro, int numeroRegistro, int tamanoPagina);
     }
 }
