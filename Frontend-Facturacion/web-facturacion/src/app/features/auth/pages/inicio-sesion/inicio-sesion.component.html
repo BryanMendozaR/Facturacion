@@ -1,0 +1,65 @@
+<div class="container-fluid p-0">
+    <div class="row g-0" style="height: 100vh;">
+        <div class="col-xl-7 d-flex justify-content-center align-items-center">
+            <img src="assets/images/login.svg" alt="" class="img-fluid" />
+        </div>
+
+        <div class="col-xl-5 d-flex align-items-center justify-content-center">
+            <div class="w-100 px-5 mx-5">
+                <div class="w-100">
+                    <div class="d-flex flex-column h-100">
+                        <div class="my-auto">
+                            <div class="text-center">
+                                <h4 class="">Bienvenido</h4>
+                                <p class="text-muted">Inicia sesión para continuar</p>
+                            </div>
+
+                            <div class="mt-4">
+                                <form [formGroup]="formularioInicioSesion" (ngSubmit)="enviarFormulario()">
+                                    <div class="mb-3">
+                                        <label for="usuario">Usuario</label>
+                                        <input matInput type="text" class="form-control" id="usuario"
+                                            formControlName="usuario"
+                                            [ngClass]="{ 'is-invalid': submitted && formulario['usuario'].errors }"
+                                            placeholder="Usuario" />
+                                        <div *ngIf="submitted && formulario['usuario'].errors" class="invalid-feedback">
+                                            <div *ngIf="formulario['usuario'].errors?.['required']">Usuario es requerido
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="contrasena">Contraseña</label>
+                                        <div class="input-group auth-pass-inputgroup">
+                                            <input matInput [type]="hide() ? 'password' : 'text'" class="form-control"
+                                                formControlName="contrasena"
+                                                [ngClass]="{'is-invalid': submitted && formulario['contrasena'].errors }"
+                                                placeholder="Contraseña" aria-label="Password"
+                                                aria-describedby="password-addon" />
+                                            <button type="button" mat-icon-button matSuffix (click)="clickEvent($event)"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                                                <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <div *ngIf="submitted && formulario['contrasena'].errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="formulario['contrasena'].errors?.['required']">Contraseña es
+                                                    requerida
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3 d-grid">
+                                        <button class="btn wp-color-morado btn-block" type="submit">
+                                            Iniciar sesión
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

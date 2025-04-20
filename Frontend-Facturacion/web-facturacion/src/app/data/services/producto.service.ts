@@ -29,4 +29,22 @@ export class ProductoService {
             })
         );
     }
+
+    filtrarProducto(filtro: string, pagina: number): Observable<DatosProductos[]> {
+        console.log("entro al servicio");
+        return this.httpClient.get<Respuesta<DatosProductos[]>>(`${this.apiUrl}/Producto/Filtrar/${pagina}/${filtro}`).pipe(
+            map((respuesta) => {
+                console.log(respuesta);
+                if (respuesta.exito) {
+                    return respuesta.data;
+                } else {
+                    throw new Error(respuesta.mensaje || 'Error al consultar productos');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error interno al consultar productos:', error);
+                return throwError(() => new Error('Error interno al consultar productos'));
+            })
+        );
+    }
 }

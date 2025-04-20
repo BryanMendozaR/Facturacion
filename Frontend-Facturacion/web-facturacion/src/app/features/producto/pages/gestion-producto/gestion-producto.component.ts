@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Cabecera} from '../../../../core/models/cabecera.interface';
+import {ConfiguracionTabla} from '../../../../core/models/configuracion-tabla.interface';
 import {DatosProductos} from '../../../../core/models/datos-producto.interface';
 import {ProductoService} from '../../../../data/services/producto.service';
 
@@ -21,15 +22,15 @@ export class GestionProductoComponent implements OnInit {
   constructor(private productoService: ProductoService) { }
 
   ngOnInit(): void {
-    this.consultarProductos(1);
+    this.consultarProductos(1, '');
   }
 
-  consultarProductos(pagina: number): void {
-    this.productoService.consultarProductos(pagina).subscribe(producto => this.productos = producto)
+  consultarProductos(pagina: number, texto: string): void {
+    this.productoService.filtrarProducto(texto, pagina).subscribe(producto => this.productos = producto)
   }
 
-  onPageChanged(page: any) {
-    this.consultarProductos(page);
+  buscarCambiarPagina(datos: ConfiguracionTabla) {
+    this.consultarProductos(datos.numeroPagina, datos.textoBusqueda);
   }
 
   editar(producto: any) {

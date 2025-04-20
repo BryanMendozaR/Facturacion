@@ -1,4 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+$wp-tamano-encabezado: 60px;
+#layout-wrapper {
+  margin: 0 auto;
+}
+
+.main-content {
+  .content {
+    padding: 0 15px 10px 15px;
+    margin-top: $wp-tamano-encabezado;
+  }
+}
+
+.page-content {
+  margin-top: $wp-tamano-encabezado;
+}

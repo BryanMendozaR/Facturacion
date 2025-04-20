@@ -1,3 +1,6 @@
-<app-product-table [cabeceras]="headers" [respuesta]="productos" (edit)="editar($event)" (delete)="eliminar($event)"
-    (create)="crear()" (cambioPagina)="onPageChanged($event)">
-</app-product-table>
+<div>
+    <app-product-table [cabeceras]="headers" [respuesta]="productos" (editar)="editar($event)"
+        (eliminar)="eliminar($event)" (cambioPagina)="buscarCambiarPagina($event)"
+        (cambiarBusqueda)="buscarCambiarPagina($event)">
+    </app-product-table>
+</div>

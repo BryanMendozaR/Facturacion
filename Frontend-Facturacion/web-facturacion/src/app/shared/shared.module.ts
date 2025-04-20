@@ -1,5 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {ProductTableComponent} from '../shared/components/product-table/product-table.component';
 import {MaterialModule} from '../shared/material/material.module';
 import {SharedRoutingModule} from './shared-routing.module';
@@ -11,7 +12,8 @@ import {SharedRoutingModule} from './shared-routing.module';
     imports: [
         SharedRoutingModule,
         MaterialModule,
-        CommonModule
+        CommonModule,
+        FormsModule
     ],
     exports: [ProductTableComponent, MaterialModule]
 })

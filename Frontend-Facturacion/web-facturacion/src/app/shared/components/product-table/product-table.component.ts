@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {Cabecera} from '../../../core/models/cabecera.interface';
+import {ConfiguracionTabla} from '../../../core/models/configuracion-tabla.interface';
 
 @Component({
   selector: 'app-product-table',
@@ -11,10 +12,15 @@ import {Cabecera} from '../../../core/models/cabecera.interface';
 export class ProductTableComponent {
   @Input() respuesta: any;
   @Input() cabeceras: Cabecera[] = [];
-  @Output() cambioPagina = new EventEmitter<number>();
-  @Output() edit = new EventEmitter<any>();
-  @Output() delete = new EventEmitter<any>();
-  @Output() create = new EventEmitter<void>();
+  @Output() cambioPagina = new EventEmitter<ConfiguracionTabla>();
+  @Output() editar = new EventEmitter<any>();
+  @Output() eliminar = new EventEmitter<any>();
+  @Output() cambiarBusqueda = new EventEmitter<any>();
+
+  peticionConsultaDatos: ConfiguracionTabla = {
+    numeroPagina: 1,
+    textoBusqueda: ''
+  }
 
   displayedColumns: string[] = [];
   datos = new MatTableDataSource<any>([]);
@@ -22,26 +28,29 @@ export class ProductTableComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnChanges() {
-    console.log("Tabla de datos:", this.respuesta);
     if (this.respuesta.datos) {
       this.displayedColumns = [...this.cabeceras.map(c => c.nombre), 'acciones'];
       this.datos = new MatTableDataSource(this.respuesta.datos);
     }
   }
 
-  onEdit(row: any) {
-    this.edit.emit(row);
+  eventoEditar(row: any) {
+    this.editar.emit(row);
   }
 
-  onDelete(row: any) {
-    this.delete.emit(row);
+  eventoEliminar(row: any) {
+    this.eliminar.emit(row);
   }
 
-  onCreate() {
-    this.create.emit();
+  // Metodo para cambio de pagina
+  cambioPaginaBusqueda(event: any) {
+    this.peticionConsultaDatos.numeroPagina = event.pageIndex + 1;
+    this.cambioPagina.emit(this.peticionConsultaDatos);
   }
 
-  onPageEvent(event: any) {
-    this.cambioPagina.emit(event.pageIndex + 1);
+  // Metodo de busqueda
+  buscar() {
+    this.peticionConsultaDatos.numeroPagina = 1;
+    this.cambiarBusqueda.emit(this.peticionConsultaDatos);
   }
 }

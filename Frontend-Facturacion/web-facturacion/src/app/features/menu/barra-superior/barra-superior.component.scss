@@ -1,0 +1,57 @@
+$color-primary-topbar: #6c63ff;
+$color-secondary-topbar: #c2c2c2;
+
+#page-topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1002;
+  background-color: $color-primary-topbar;
+}
+
+#page-topbar button {
+  color: white;
+}
+
+.header-profile-user {
+  height: 36px;
+  width: 36px;
+  background-color: rgba(#c2c2c2, 0.25);
+  padding: 3px;
+}
+
+.navbar-header {
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  height: 60px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-item {
+  background-color: transparent;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+}
+
+.nav-item:hover {
+  background-color: $color-secondary-topbar !important;
+  color: #333 !important;
+}
+
+.nav-item.active {
+  background-color: #fff !important;
+  color: $color-secondary-topbar !important;
+  border-radius: 5px;
+}
