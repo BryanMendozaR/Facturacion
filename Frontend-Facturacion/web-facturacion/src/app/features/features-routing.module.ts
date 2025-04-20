@@ -1,13 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {InicioSesionComponent} from './auth/pages/inicio-sesion/inicio-sesion.component';
+import {InicioSesionComponent} from './auth/inicio-sesion/inicio-sesion.component';
 import {GestionClienteComponent} from './cliente/pages/gestion-cliente/gestion-cliente.component';
 import {PaginaMaestraComponent} from './menu/pagina-maestra/pagina-maestra.component';
 import {GestionProductoComponent} from './producto/pages/gestion-producto/gestion-producto.component';
 
 const routes: Routes = [
   {path: 'login', component: InicioSesionComponent},
-
   {
     path: 'inicio',
     component: PaginaMaestraComponent,
@@ -22,7 +21,6 @@ const routes: Routes = [
       },
     ]
   },
-
   {path: '**', redirectTo: 'login'},
 ];
 

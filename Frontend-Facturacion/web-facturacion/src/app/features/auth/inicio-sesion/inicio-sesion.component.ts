@@ -10,21 +10,26 @@ import {Router} from '@angular/router';
 
 export class InicioSesionComponent {
   private formBuilder = inject(UntypedFormBuilder);
-
   formularioInicioSesion: UntypedFormGroup = this.formBuilder.group({});
   submitted: any = false;
   error: any = '';
   returnUrl: string = "";
   year: number = new Date().getFullYear();
-
   hide = signal(true);
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
 
+  /*
+  * Constructor de la clase se lo utiliza para la inyeccion de dependencias
+  */
   constructor(private router: Router) { }
 
+  /*
+  * Metodo que se ejecuta despues de inicializar la vista
+  * Se inicializan los validadores del formulario
+  */
   ngOnInit(): void {
     const usuario = '';
     const contrasena = '';
@@ -35,9 +40,14 @@ export class InicioSesionComponent {
     });
   }
 
+  /*
+  * Metodo para obtener los controles del formulario
+  */
   get formulario() {return this.formularioInicioSesion.controls;}
 
-
+  /*
+  * Metodo para autenticar al usuario
+  */
   enviarFormulario() {
     this.router.navigate(['/facturacion/inicio/producto']);
   }

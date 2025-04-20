@@ -2,7 +2,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
-import {InicioSesionComponent} from './auth/pages/inicio-sesion/inicio-sesion.component';
+import {InicioSesionComponent} from './auth/inicio-sesion/inicio-sesion.component';
 import {GestionClienteComponent} from './cliente/pages/gestion-cliente/gestion-cliente.component';
 import {FeaturesRoutingModule} from './features-routing.module';
 import {BarraSuperiorComponent} from './menu/barra-superior/barra-superior.component';

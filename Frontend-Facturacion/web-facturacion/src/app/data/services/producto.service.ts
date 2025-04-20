@@ -8,10 +8,20 @@ import {Respuesta} from '../../core/models/respuesta.interface';
 @Injectable({providedIn: 'root'})
 export class ProductoService {
 
+    /*
+    * Obtenemos la url base de nuestro archivo de variables
+    */
     private apiUrl = environments.Url;
 
+    /*
+    * Constructor de la clase se lo utiliza para la inyeccion de dependencias
+    */
     constructor(private httpClient: HttpClient) { }
 
+    /*
+    * Metodo para consultar los productos
+    * @param {pagina} numero de pagina donde se encuentra el usuario en la tabla
+    */
     consultarProductos(pagina: number): Observable<DatosProductos[]> {
         console.log("entro al servicio");
         return this.httpClient.get<Respuesta<DatosProductos[]>>(`${this.apiUrl}/Producto/Consultar/${pagina}`).pipe(
@@ -30,6 +40,11 @@ export class ProductoService {
         );
     }
 
+    /*
+    * Metodo para consultar los productos segun parametros de filtrado
+    * @param {pagina} numero de pagina donde se encuentra el usuario en la tabla
+    * @param {filtro} texto digitado por el usuario con el cual se va a realizar la consulta
+    */
     filtrarProducto(filtro: string, pagina: number): Observable<DatosProductos[]> {
         console.log("entro al servicio");
         return this.httpClient.get<Respuesta<DatosProductos[]>>(`${this.apiUrl}/Producto/Filtrar/${pagina}/${filtro}`).pipe(

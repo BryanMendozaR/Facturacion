@@ -1,13 +1,15 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {ProductTableComponent} from '../shared/components/product-table/product-table.component';
 import {MaterialModule} from '../shared/material/material.module';
+import {BarraComponent} from './components/barra/barra.component';
+import {TableComponent} from './components/table/table.component';
 import {SharedRoutingModule} from './shared-routing.module';
 
 @NgModule({
     declarations: [
-        ProductTableComponent,
+        TableComponent,
+        BarraComponent
     ],
     imports: [
         SharedRoutingModule,
@@ -15,6 +17,6 @@ import {SharedRoutingModule} from './shared-routing.module';
         CommonModule,
         FormsModule
     ],
-    exports: [ProductTableComponent, MaterialModule]
+    exports: [TableComponent, BarraComponent, MaterialModule]
 })
 export class SharedModule { }

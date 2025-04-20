@@ -1,6 +1,17 @@
-<div>
-    <app-product-table [cabeceras]="headers" [respuesta]="productos" (editar)="editar($event)"
-        (eliminar)="eliminar($event)" (cambioPagina)="buscarCambiarPagina($event)"
-        (cambiarBusqueda)="buscarCambiarPagina($event)">
-    </app-product-table>
+<div class="container-fluid">
+    <app-barra titulo="{{titulo}}" [elementos]="botones"></app-barra>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <app-table [cabeceras]="headers" [respuesta]="productos" (editar)="editar($event)"
+                            (eliminar)="eliminar($event)" (cambioPagina)="buscarCambiarPagina($event)"
+                            (cambiarBusqueda)="buscarCambiarPagina($event)">
+                        </app-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
