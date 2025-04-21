@@ -51,5 +51,13 @@ namespace Facturacion.Infraestructura.Datos.IRepositorios
         /// <param name="tamanoPagina">Tamano de la pagina</param>
         /// <returns>Lista de usuarios paginada</returns>
         Task<RespuestaPaginadaModelo<UsuarioModelo>> ConsultarPorNombreAsync(string nombre, int numeroRegistro, int tamanoPagina);
+
+        /// <summary>
+        /// Metodo para iniciar sesion
+        /// </summary>
+        /// <param name="usuario">Usuario</param>
+        /// <param name="clave">Clave</param>
+        /// <returns>Lista con todos los usuarios</returns>
+        Task<IniciarSesionModelo> IniciarSesionAsync(string usuario, string clave);
     }
 }

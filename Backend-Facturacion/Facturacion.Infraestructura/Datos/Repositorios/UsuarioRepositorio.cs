@@ -131,5 +131,23 @@ namespace Facturacion.Infraestructura.Datos.Repositorios
                 TamanoPagina = tamanoPagina
             };
         }
+
+        /// <summary>
+        /// Metodo para iniciar sesion
+        /// </summary>
+        /// <param name="usuario">Usuario</param>
+        /// <param name="clave">Clave</param>
+        /// <returns>Lista con todos los usuarios</returns>
+        public async Task<IniciarSesionModelo> IniciarSesionAsync(string usuario, string clave)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@i_usuario", usuario);
+            parameters.Add("@i_clave", clave);
+            parameters.Add("@o_respuesta_inicio_sesion", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+
+            IniciarSesionModelo usuarios = await _dbConnection.QueryFirstOrDefaultAsync<IniciarSesionModelo>("sps_iniciar_sesion", parameters, commandType: CommandType.StoredProcedure) ?? new IniciarSesionModelo();
+            usuarios.Inicio = parameters.Get<bool>("@o_respuesta_inicio_sesion");
+            return usuarios;
+        }
     }
 }

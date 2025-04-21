@@ -102,5 +102,18 @@ namespace Facturacion.Api.Controllers
             return Ok(respuestaDto);
 
         }
+
+        /// <summary>
+        /// Metodo para iniciar sesion
+        /// </summary>
+        /// <returns>Modelo con los datos del usuario que inicia sesion</returns>
+        [HttpGet]
+        [Route("IniciarSesion/{usuario}/{clave}")]
+        public async Task<IActionResult> IniciarSesion([FromRoute] string usuario, [FromRoute] string clave)
+        {
+            respuestaDto = await RespuestaUtilitario.GenerarRespuestaDto(_logger, async () => await _mediator.Send(new IniciarSesion(usuario, clave)));
+            return Ok(respuestaDto);
+
+        }
     }
 }

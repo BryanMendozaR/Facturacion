@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Facturacion.Aplicacion.Usuarios.Consultar
 {
-    internal class FiltrarUsuarioHandler : IRequestHandler<FiltrarUsuario, RespuestaPaginadaModelo<UsuarioModelo>>
+    internal class IniciarSesionHandler : IRequestHandler<IniciarSesion, IniciarSesionModelo>
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
 
@@ -12,24 +12,21 @@ namespace Facturacion.Aplicacion.Usuarios.Consultar
         /// Constructor de la clase para inyectar la interfaz del servicio
         /// </summary>
         /// <param name="usuarioRepositorio">Interfaz que implementa el servicio de usuario</param>
-        public FiltrarUsuarioHandler(IUsuarioRepositorio usuarioRepositorio)
+        public IniciarSesionHandler(IUsuarioRepositorio usuarioRepositorio)
         {
             _usuarioRepositorio = usuarioRepositorio;
 
         }
 
         /// <summary>
-        /// Implementacion para consultar usuarios segun el nombre
+        /// Implementacion para iniciar sesion
         /// </summary>
         /// <param name="request">Objeto con los datos del usuario</param>
         /// <param name="cancellationToken">Token de cancelacion del proceso</param>
         /// <returns>Lista con los datos de los usuarios</returns>
-        public async Task<RespuestaPaginadaModelo<UsuarioModelo>> Handle(FiltrarUsuario request, CancellationToken cancellationToken)
+        public Task<IniciarSesionModelo> Handle(IniciarSesion request, CancellationToken cancellationToken)
         {
-            if(string.IsNullOrEmpty(request.Nombre.Trim()))
-                return await _usuarioRepositorio.ConsultarAsync(request.Pagina, request.TamanoPagina);
-
-            return await _usuarioRepositorio.ConsultarPorNombreAsync(request.Nombre, request.Pagina, request.TamanoPagina);
+            return _usuarioRepositorio.IniciarSesionAsync(request.Usuario, request.Clave);
         }
     }
 }
