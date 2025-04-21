@@ -7,6 +7,7 @@ import {GestionClienteComponent} from './cliente/gestion-cliente/gestion-cliente
 import {FeaturesRoutingModule} from './features-routing.module';
 import {BarraSuperiorComponent} from './menu/barra-superior/barra-superior.component';
 import {PaginaMaestraComponent} from './menu/pagina-maestra/pagina-maestra.component';
+import {PanelInicialComponent} from './panel-inicial/panel-inicial.component';
 import {GestionProductoComponent} from './producto/gestion-producto/gestion-producto.component';
 import {GestionUsuarioComponent} from './usuario/gestion-usuario/gestion-usuario.component';
 
@@ -18,6 +19,7 @@ import {GestionUsuarioComponent} from './usuario/gestion-usuario/gestion-usuario
       GestionUsuarioComponent,
       InicioSesionComponent,
       PaginaMaestraComponent,
+      PanelInicialComponent,
       BarraSuperiorComponent
     ],
   imports: [

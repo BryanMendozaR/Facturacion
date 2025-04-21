@@ -1,6 +1,8 @@
 <header id="page-topbar">
     <div class="navbar-header">
         <div class="d-flex nav-menu">
+            <button type="button" class="btn nav-item" (click)="cambiarContenido('/facturacion/inicio')"
+                [ngClass]="{'active': rutaActiva('/facturacion/inicio')}">INICIO</button>
             <button type="button" class="btn nav-item" (click)="cambiarContenido('/facturacion/inicio/cliente')"
                 [ngClass]="{'active': rutaActiva('/facturacion/inicio/cliente')}">CLIENTES</button>
             <button type="button" class="btn nav-item" (click)="cambiarContenido('/facturacion/inicio/producto')"

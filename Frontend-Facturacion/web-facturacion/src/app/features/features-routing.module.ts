@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {InicioSesionComponent} from './auth/inicio-sesion/inicio-sesion.component';
 import {GestionClienteComponent} from './cliente/gestion-cliente/gestion-cliente.component';
 import {PaginaMaestraComponent} from './menu/pagina-maestra/pagina-maestra.component';
+import {PanelInicialComponent} from './panel-inicial/panel-inicial.component';
 import {GestionProductoComponent} from './producto/gestion-producto/gestion-producto.component';
 import {GestionUsuarioComponent} from './usuario/gestion-usuario/gestion-usuario.component';
 
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'usuario',
         component: GestionUsuarioComponent,
+      },
+      {
+        path: '',
+        component: PanelInicialComponent,
       },
     ]
   },

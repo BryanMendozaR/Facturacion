@@ -1,6 +1,8 @@
 import {Component, inject, signal} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AutenticacionService} from '../../../core/services/autentication.service';
+import {ServicioMensaje} from '../../../core/services/message.service';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -24,7 +26,7 @@ export class InicioSesionComponent {
   /*
   * Constructor de la clase se lo utiliza para la inyeccion de dependencias
   */
-  constructor(private router: Router) { }
+  constructor(private router: Router, private autenticacionService: AutenticacionService, private mensaje: ServicioMensaje) { }
 
   /*
   * Metodo que se ejecuta despues de inicializar la vista
@@ -49,6 +51,20 @@ export class InicioSesionComponent {
   * Metodo para autenticar al usuario
   */
   enviarFormulario() {
-    this.router.navigate(['/facturacion/inicio/producto']);
+    const usuario = this.formularioInicioSesion.get('usuario')?.value;
+    const contrasena = this.formularioInicioSesion.get('contrasena')?.value;
+    this.autenticacionService.iniciarSesion(usuario, contrasena).subscribe({
+      next: (respuesta) => {
+        if (respuesta.inicio) {
+          this.router.navigate(['/facturacion/inicio']);
+        } else {
+          this.mensaje.growl.error(' Usuario / Contraseña Inválida.');
+        }
+      },
+      error: (err) => {
+        this.error = 'Error en la autenticación';
+        console.error(err);
+      }
+    });
   }
 }

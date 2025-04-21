@@ -19,7 +19,12 @@ export class BarraSuperiorComponent implements OnInit {
   * Se establece un titulo para la barra
   */
   ngOnInit() {
-    this.usuario = "admin";
+    if (localStorage.getItem('codigo') && localStorage.getItem('nombre') && localStorage.getItem('usuario') && localStorage.getItem('correo')) {
+      this.usuario = localStorage.getItem('usuario')!;
+    } else {
+      this.router.navigate(['/facturacion/login']);
+    }
+
   }
 
   /*
