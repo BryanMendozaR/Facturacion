@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Facturacion.Dominio\Facturacion.Dominio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Script\" />
+  </ItemGroup>
+
 </Project>
