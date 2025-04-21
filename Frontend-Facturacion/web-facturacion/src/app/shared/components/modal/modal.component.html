@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>{{ data.titulo }}</h2>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <ng-container *ngFor="let campo of data.campos">
+            <div class="my-2">
+                <mat-form-field appearance="fill" class="w-100">
+
+                    <mat-label>{{ campo.nombre | titlecase }}</mat-label>
+
+                    <!-- Campo tipo texto o número -->
+                    <input *ngIf="campo.tipo === 'text' || campo.tipo === 'number'" matInput [type]="campo.tipo"
+                        [formControlName]="campo.nombre" />
+
+                    <!-- Campo tipo fecha -->
+                    <input *ngIf="campo.tipo === 'date'" matInput [matDatepicker]="picker"
+                        [formControlName]="campo.nombre" />
+                    <mat-datepicker-toggle *ngIf="campo.tipo === 'date'" matSuffix
+                        [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+
+                    <!-- Campo tipo select -->
+                    <mat-select *ngIf="campo.tipo === 'select'" [formControlName]="campo.nombre">
+                        <mat-option *ngFor="let opcion of campo.opciones" [value]="opcion">
+                            {{ opcion }}
+                        </mat-option>
+                    </mat-select>
+
+                    <!-- Validaciones -->
+                    <mat-error *ngIf="form.get(campo.nombre)?.touched && form.get(campo.nombre)?.hasError('required')">
+                        {{ campo.nombre | titlecase }} es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="form.get(campo.nombre)?.touched && form.get(campo.nombre)?.hasError('minlength')">
+                        Mínimo {{ form.get(campo.nombre)?.errors?.['minlength'].requiredLength }} caracteres
+                    </mat-error>
+                    <mat-error *ngIf="form.get(campo.nombre)?.touched && form.get(campo.nombre)?.hasError('min')">
+                        El valor debe ser mayor o igual a {{ form.get(campo.nombre)?.errors?.['min'].min }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </ng-container>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="justify-end">
+    <button mat-button (click)="cerrar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+</mat-dialog-actions>

@@ -1,9 +1,14 @@
 import {Component, OnInit} from '@angular/core';
+import {Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
 import {Botones} from '../../../../core/models/botones-barra.interface';
 import {Cabecera} from '../../../../core/models/cabecera.interface';
 import {ConfiguracionTabla} from '../../../../core/models/configuracion-tabla.interface';
 import {DatosProductos} from '../../../../core/models/datos-producto.interface';
+import {EditarProducto} from '../../../../core/models/editar-producto.interface';
+import {ServicioMensaje} from '../../../../core/services/message.service';
 import {ProductoService} from '../../../../data/services/producto.service';
+import {ModalComponent} from '../../../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-gestion-producto',
@@ -14,6 +19,10 @@ export class GestionProductoComponent implements OnInit {
   public productos: DatosProductos[] = [];
   titulo: string = 'Productos';
   botones: Botones[] = [];
+  datosProducto: EditarProducto[] = [];
+  productoIdentificador: number = 0;
+  productoNombre: string = '';
+  modalConfirmacion = false;
   headers: Cabecera[] = [
     {nombre: 'codigo', texto: 'Código'},
     {nombre: 'nombre', texto: 'Producto'},
@@ -25,7 +34,7 @@ export class GestionProductoComponent implements OnInit {
   /*
   * Constructor de la clase se lo utiliza para la inyeccion de dependencias
   */
-  constructor(private productoService: ProductoService) { }
+  constructor(private productoService: ProductoService, private dialog: MatDialog, private mensaje: ServicioMensaje) { }
 
   /*
   * Metodo que se ejecuta despues de inicializar la vista
@@ -72,15 +81,79 @@ export class GestionProductoComponent implements OnInit {
   * @param {producto} fila seleccionada
   */
   editar(producto: any) {
-    console.log('Editar', producto);
+    const campos = [
+      {nombre: 'codigo', valor: producto.codigo, tipo: 'text', validaciones: [Validators.required]},
+      {nombre: 'nombre', valor: producto.nombre, tipo: 'text', validaciones: [Validators.required]},
+      {
+        nombre: 'estado',
+        valor: producto.estado ? 'Activo' : 'Inactivo',
+        tipo: 'select',
+        opciones: ['Activo', 'Inactivo'],
+        validaciones: []
+      },
+      {nombre: 'precio', valor: producto.precio, tipo: 'number', validaciones: [Validators.required]}
+    ];
+
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {titulo: 'Editar Producto', campos},
+      disableClose: true
+    });
+
+    // Accedemos al componente del modal para suscribirnos al evento
+    const instance = dialogRef.componentInstance;
+
+    instance.onGuardar.subscribe((formValue: any) => {
+      const productoEditado: EditarProducto = {
+        identificador: producto.identificador,
+        codigo: formValue.codigo,
+        nombre: formValue.nombre,
+        precio: formValue.precio,
+        estado: formValue.estado === 'Activo'
+      };
+
+      this.productoService.editarProducto(productoEditado).subscribe({
+        next: (respuesta) => {
+          if (respuesta) {
+            this.consultarProductos(1, '');
+            dialogRef.close();
+          } else {
+            this.mensaje.growl.error('No se pudo editar el producto.');
+          }
+        },
+        error: () => {
+          this.mensaje.growl.error('Error al editar el producto.');
+        }
+      });
+    });
   }
 
   /*
-  * Metodo para eliminar un producto
+  * Metodo para eliminar un producto de la tabla
   * @param {producto} fila seleccionada
   */
   eliminar(producto: any) {
-    console.log('Eliminar', producto);
+    this.productoIdentificador = producto.identificador;
+    this.productoNombre = producto.codigo;
+    this.modalConfirmacion = true;
+  }
+
+  /*
+  * Metodo para eliminar un producto de la tabla despues de que el usuario confirme la eliminacion
+  */
+  confirmarEliminacion() {
+    this.productoService.eliminarProducto(this.productoIdentificador).subscribe(() => {
+      this.consultarProductos(1, '');
+      this.cerrarModalConfirmacion();
+    });
+  }
+
+  /*
+  * Metodo para cancelar la eliminacion del producto
+  */
+  cerrarModalConfirmacion() {
+    this.modalConfirmacion = false;
+    this.productoIdentificador = 0;
   }
 
   /*

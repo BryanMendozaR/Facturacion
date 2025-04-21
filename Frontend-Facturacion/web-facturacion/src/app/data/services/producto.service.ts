@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {catchError, map, Observable, throwError} from 'rxjs';
 import {environments} from '../../../environments/environments';
 import {DatosProductos} from '../../core/models/datos-producto.interface';
+import {EditarProducto} from '../../core/models/editar-producto.interface';
 import {Respuesta} from '../../core/models/respuesta.interface';
 
 @Injectable({providedIn: 'root'})
@@ -59,6 +60,44 @@ export class ProductoService {
             catchError((error) => {
                 console.error('Error interno al consultar productos:', error);
                 return throwError(() => new Error('Error interno al consultar productos'));
+            })
+        );
+    }
+
+    /*
+    * Metodo para editar el producto
+    * @param {datosProducto} datos del producto editado
+    */
+    editarProducto(datosProducto: EditarProducto): Observable<boolean> {
+        console.log("entro al servicio");
+        return this.httpClient.put<Respuesta<DatosProductos[]>>(`${this.apiUrl}/Producto/Actualizar/Datos`, datosProducto).pipe(
+            map((respuesta) => {
+                return respuesta.exito;
+            }),
+            catchError((error) => {
+                console.error('Error interno al editar el producto:', error);
+                return throwError(() => new Error('Error interno al editar el producto'));
+            })
+        );
+    }
+
+    /*
+   * Metodo para eliminar el producto
+   * @param {identificador} identificador del producto
+   */
+    eliminarProducto(identificador: number): Observable<boolean> {
+        return this.httpClient.delete<Respuesta<DatosProductos[]>>(`${this.apiUrl}/Producto/Eliminar/${identificador}`).pipe(
+            map((respuesta) => {
+                console.log(respuesta);
+                if (respuesta.exito) {
+                    return respuesta.exito;
+                } else {
+                    throw new Error(respuesta.mensaje || 'Error al eliminar el producto');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error interno al eliminar el producto:', error);
+                return throwError(() => new Error('Error interno al eliminar el producto'));
             })
         );
     }

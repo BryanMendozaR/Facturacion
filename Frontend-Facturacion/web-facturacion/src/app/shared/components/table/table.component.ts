@@ -28,6 +28,7 @@ export class TableComponent {
   * Metodo que carga la tabla al detectar cambios
   */
   ngOnChanges() {
+    console.log(this.respuesta.datos);
     if (this.respuesta.datos) {
       this.displayedColumns = [...this.cabeceras.map(c => c.nombre), 'acciones'];
       this.datos = new MatTableDataSource(this.respuesta.datos);

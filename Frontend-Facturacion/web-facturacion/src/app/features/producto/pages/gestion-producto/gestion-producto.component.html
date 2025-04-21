@@ -15,3 +15,8 @@
         </div>
     </div>
 </div>
+
+<app-modal-confirmacion [titulo]="'Eliminar Producto'" [tamano]="'medium'" [isVisible]="modalConfirmacion"
+    (confirmarModal)="confirmarEliminacion()" (cerrarModal)="cerrarModalConfirmacion()">
+    <p>¿Está seguro que desea eliminar el producto <strong>{{ productoNombre}}</strong>?</p>
+</app-modal-confirmacion>
