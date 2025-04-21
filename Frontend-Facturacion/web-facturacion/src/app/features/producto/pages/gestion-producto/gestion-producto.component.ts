@@ -6,6 +6,7 @@ import {Cabecera} from '../../../../core/models/cabecera.interface';
 import {ConfiguracionTabla} from '../../../../core/models/configuracion-tabla.interface';
 import {DatosProductos} from '../../../../core/models/datos-producto.interface';
 import {EditarProducto} from '../../../../core/models/editar-producto.interface';
+import {AgregarProducto} from '../../../../core/models/insertar-producto.interface';
 import {ServicioMensaje} from '../../../../core/services/message.service';
 import {ProductoService} from '../../../../data/services/producto.service';
 import {ModalComponent} from '../../../../shared/components/modal/modal.component';
@@ -52,7 +53,7 @@ export class GestionProductoComponent implements OnInit {
     this.botones = [
       {
         etiqueta: 'NUEVO',
-        icono: 'fas fa-plus',
+        icono: 'add',
         clasesCss: 'btn-success',
         tipoAccion: () => this.crear(),
       },
@@ -117,6 +118,7 @@ export class GestionProductoComponent implements OnInit {
           if (respuesta) {
             this.consultarProductos(1, '');
             dialogRef.close();
+            this.mensaje.growl.success('Producto modificado exitosamente');
           } else {
             this.mensaje.growl.error('No se pudo editar el producto.');
           }
@@ -145,6 +147,7 @@ export class GestionProductoComponent implements OnInit {
     this.productoService.eliminarProducto(this.productoIdentificador).subscribe(() => {
       this.consultarProductos(1, '');
       this.cerrarModalConfirmacion();
+      this.mensaje.growl.success('Producto eliminado exitosamente');
     });
   }
 
@@ -160,7 +163,42 @@ export class GestionProductoComponent implements OnInit {
   * Metodo para insertar un nuevo producto
   */
   crear() {
-    console.log('Crear nuevo producto');
-  }
+    const campos = [
+      {nombre: 'codigo', valor: '', tipo: 'text', validaciones: [Validators.required]},
+      {nombre: 'nombre', valor: '', tipo: 'text', validaciones: [Validators.required]},
+      {nombre: 'precio', valor: '', tipo: 'number', validaciones: [Validators.required]}
+    ];
 
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {titulo: 'Crear Producto', campos},
+      disableClose: true
+    });
+
+    // Accedemos al componente del modal para suscribirnos al evento
+    const instance = dialogRef.componentInstance;
+
+    instance.onGuardar.subscribe((formValue: any) => {
+      const producto: AgregarProducto = {
+        codigo: formValue.codigo,
+        nombre: formValue.nombre,
+        precio: formValue.precio,
+      };
+
+      this.productoService.agregarProducto(producto).subscribe({
+        next: (respuesta) => {
+          if (respuesta) {
+            this.consultarProductos(1, '');
+            dialogRef.close();
+            this.mensaje.growl.success('Producto agregado exitosamente');
+          } else {
+            this.mensaje.growl.error('No se pudo agregar el producto.');
+          }
+        },
+        error: () => {
+          this.mensaje.growl.error('Error al agregar el producto.');
+        }
+      });
+    });
+  }
 }

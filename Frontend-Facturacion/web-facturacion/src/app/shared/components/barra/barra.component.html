@@ -6,10 +6,11 @@
                 <div class="d-flex flex-wrap gap-1">
                     @for (elemento of elementos; track $index) { @if(elemento.visible){
                     <button type="button" [disabled]="elemento.deshabilitado"
-                        class="btn btn-primary btn-sm {{ elemento.clasesCss }}" (click)="elemento?.tipoAccion()">
-                        @if(elemento.icono){<i class="{{ elemento.icono }} font-size-16 align-middle me-2"></i>}
+                        class="btn btn-primary btn-sm {{ elemento.clasesCss }} d-flex align-items-center"
+                        (click)="elemento?.tipoAccion()">
+                        @if(elemento.icono){<mat-icon>{{elemento.icono}}</mat-icon>}
                         @if(!elemento.soloIcono){
-                        {{ elemento.etiqueta }}
+                        <span class="ms-2">{{ elemento.etiqueta }}</span>
                         }
                     </button>
                     } }

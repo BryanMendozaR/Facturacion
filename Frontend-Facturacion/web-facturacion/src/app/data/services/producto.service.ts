@@ -4,6 +4,7 @@ import {catchError, map, Observable, throwError} from 'rxjs';
 import {environments} from '../../../environments/environments';
 import {DatosProductos} from '../../core/models/datos-producto.interface';
 import {EditarProducto} from '../../core/models/editar-producto.interface';
+import {AgregarProducto} from '../../core/models/insertar-producto.interface';
 import {Respuesta} from '../../core/models/respuesta.interface';
 
 @Injectable({providedIn: 'root'})
@@ -98,6 +99,27 @@ export class ProductoService {
             catchError((error) => {
                 console.error('Error interno al eliminar el producto:', error);
                 return throwError(() => new Error('Error interno al eliminar el producto'));
+            })
+        );
+    }
+
+    /*
+  * Metodo para agregar un producto
+  * @param {identificador} identificador del producto
+  */
+    agregarProducto(producto: AgregarProducto): Observable<boolean> {
+        return this.httpClient.post<Respuesta<DatosProductos[]>>(`${this.apiUrl}/Producto/Crear`, producto).pipe(
+            map((respuesta) => {
+                console.log(respuesta);
+                if (respuesta.exito) {
+                    return respuesta.exito;
+                } else {
+                    throw new Error(respuesta.mensaje || 'Error al agregar el producto');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error interno al agregar el producto:', error);
+                return throwError(() => new Error('Error interno al agregar el producto'));
             })
         );
     }
