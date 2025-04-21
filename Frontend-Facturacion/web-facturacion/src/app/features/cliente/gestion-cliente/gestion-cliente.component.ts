@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
+import {AccionTabla} from '../../../core/models/acciones-tabla.interface';
 import {Botones} from '../../../core/models/botones-barra.interface';
 import {Cabecera} from '../../../core/models/cabecera.interface';
 import {ConfiguracionTabla} from '../../../core/models/configuracion-tabla.interface';
@@ -31,6 +32,11 @@ export class GestionClienteComponent {
     {nombre: 'direccion', texto: 'Direccion'},
   ];
 
+  accionesResumen: AccionTabla[] = [
+    {icono: 'edit', color: 'primary', accion: 'editar', tooltip: 'Editar item'},
+    {icono: 'delete', color: 'warn', accion: 'eliminar', tooltip: 'Eliminar item'}
+  ];
+
   /*
   * Constructor de la clase se lo utiliza para la inyeccion de dependencias
   */
@@ -57,6 +63,21 @@ export class GestionClienteComponent {
         tipoAccion: () => this.crear(),
       },
     ];
+  }
+
+  /*
+  * Metodo para gestionar la accion que envia la tabla
+  * @param {evento} objeto donde esta la accion y los datos de la columna a afectar
+  */
+  manejarAccion(evento: {accion: string, row: any}) {
+    switch (evento.accion) {
+      case 'editar':
+        this.editar(evento.row);
+        break;
+      case 'eliminar':
+        this.eliminar(evento.row);
+        break;
+    }
   }
 
   /*

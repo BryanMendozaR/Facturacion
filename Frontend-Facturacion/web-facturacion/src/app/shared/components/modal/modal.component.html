@@ -11,6 +11,10 @@
                     <input *ngIf="campo.tipo === 'text' || campo.tipo === 'number'" matInput [type]="campo.tipo"
                         [formControlName]="campo.nombre" />
 
+                    <!-- Campo tipo password -->
+                    <input *ngIf="campo.tipo === 'password'" matInput [type]="campo.tipo"
+                        [formControlName]="campo.nombre" />
+
                     <!-- Campo tipo fecha -->
                     <input *ngIf="campo.tipo === 'date'" matInput [matDatepicker]="picker"
                         [formControlName]="campo.nombre" />
@@ -40,6 +44,9 @@
                     </mat-error>
                     <mat-error *ngIf="form.get(campo.nombre)?.touched && form.get(campo.nombre)?.hasError('email')">
                         Correo electrónico no válido
+                    </mat-error>
+                    <mat-error *ngIf="form.get(campo.nombre)?.touched && form.get(campo.nombre)?.hasError('notEqual')">
+                        Las contraseñas deben de ser iguales
                     </mat-error>
                 </mat-form-field>
             </div>

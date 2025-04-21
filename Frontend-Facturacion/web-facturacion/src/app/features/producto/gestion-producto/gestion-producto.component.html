@@ -5,9 +5,9 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <app-table [cabeceras]="headers" [respuesta]="productos" (editar)="editar($event)"
-                            (eliminar)="eliminar($event)" (cambioPagina)="buscarCambiarPagina($event)"
-                            (cambiarBusqueda)="buscarCambiarPagina($event)">
+                        <app-table [cabeceras]="headers" [respuesta]="productos"
+                            (cambioPagina)="buscarCambiarPagina($event)" (cambiarBusqueda)="buscarCambiarPagina($event)"
+                            (accionEjecutada)="manejarAccion($event)" [accionesDisponibles]="accionesResumen">
                         </app-table>
                     </div>
                 </div>

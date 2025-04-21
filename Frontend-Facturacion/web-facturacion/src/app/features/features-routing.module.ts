@@ -4,6 +4,7 @@ import {InicioSesionComponent} from './auth/inicio-sesion/inicio-sesion.componen
 import {GestionClienteComponent} from './cliente/gestion-cliente/gestion-cliente.component';
 import {PaginaMaestraComponent} from './menu/pagina-maestra/pagina-maestra.component';
 import {GestionProductoComponent} from './producto/gestion-producto/gestion-producto.component';
+import {GestionUsuarioComponent} from './usuario/gestion-usuario/gestion-usuario.component';
 
 const routes: Routes = [
   {path: 'login', component: InicioSesionComponent},
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'cliente',
         component: GestionClienteComponent,
+      },
+      {
+        path: 'usuario',
+        component: GestionUsuarioComponent,
       },
     ]
   },

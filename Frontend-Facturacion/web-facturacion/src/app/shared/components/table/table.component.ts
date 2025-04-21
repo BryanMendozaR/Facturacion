@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {AccionTabla} from '../../../core/models/acciones-tabla.interface';
 import {Cabecera} from '../../../core/models/cabecera.interface';
 import {ConfiguracionTabla} from '../../../core/models/configuracion-tabla.interface';
 
@@ -12,10 +13,10 @@ import {ConfiguracionTabla} from '../../../core/models/configuracion-tabla.inter
 export class TableComponent {
   @Input() respuesta: any;
   @Input() cabeceras: Cabecera[] = [];
+  @Input() accionesDisponibles: AccionTabla[] = [];
   @Output() cambioPagina = new EventEmitter<ConfiguracionTabla>();
-  @Output() editar = new EventEmitter<any>();
-  @Output() eliminar = new EventEmitter<any>();
   @Output() cambiarBusqueda = new EventEmitter<any>();
+  @Output() accionEjecutada = new EventEmitter<{accion: string, row: any}>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = [];
   datos = new MatTableDataSource<any>([]);
@@ -36,17 +37,10 @@ export class TableComponent {
   }
 
   /*
-  * Metodo que dispara el evento padre para editar
+  * Metodo que envia la accion y la fila para que el componente padre gestione esa accion
   */
-  eventoEditar(row: any) {
-    this.editar.emit(row);
-  }
-
-  /*
-  * Metodo que dispara el evento padre para eliminar
-  */
-  eventoEliminar(row: any) {
-    this.eliminar.emit(row);
+  ejecutarAccion(accion: string, row: any) {
+    this.accionEjecutada.emit({accion, row});
   }
 
   /*

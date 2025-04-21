@@ -20,7 +20,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
   exports: [
     MatAutocompleteModule,
@@ -43,7 +43,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatCheckboxModule,
     MatExpansionModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTooltipModule
   ],
 })
 export class MaterialModule { }

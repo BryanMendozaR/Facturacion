@@ -32,6 +32,10 @@ export class ModalComponent {
     });
 
     this.form = this.fb.group(group);
+
+    if (this.data.validacionGrupo) {
+      this.form.setValidators(this.data.validacionGrupo);
+    }
   }
 
   /*

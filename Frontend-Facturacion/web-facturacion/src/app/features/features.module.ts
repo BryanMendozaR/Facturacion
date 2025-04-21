@@ -8,12 +8,14 @@ import {FeaturesRoutingModule} from './features-routing.module';
 import {BarraSuperiorComponent} from './menu/barra-superior/barra-superior.component';
 import {PaginaMaestraComponent} from './menu/pagina-maestra/pagina-maestra.component';
 import {GestionProductoComponent} from './producto/gestion-producto/gestion-producto.component';
+import {GestionUsuarioComponent} from './usuario/gestion-usuario/gestion-usuario.component';
 
 @NgModule({
   declarations:
     [
       GestionProductoComponent,
       GestionClienteComponent,
+      GestionUsuarioComponent,
       InicioSesionComponent,
       PaginaMaestraComponent,
       BarraSuperiorComponent
