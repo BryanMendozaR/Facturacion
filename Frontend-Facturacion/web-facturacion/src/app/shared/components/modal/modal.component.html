@@ -32,8 +32,14 @@
                     <mat-error *ngIf="form.get(campo.nombre)?.touched && form.get(campo.nombre)?.hasError('minlength')">
                         Mínimo {{ form.get(campo.nombre)?.errors?.['minlength'].requiredLength }} caracteres
                     </mat-error>
+                    <mat-error *ngIf="form.get(campo.nombre)?.touched && form.get(campo.nombre)?.hasError('maxlength')">
+                        Máximo {{ form.get(campo.nombre)?.errors?.['maxlength'].requiredLength }} caracteres
+                    </mat-error>
                     <mat-error *ngIf="form.get(campo.nombre)?.touched && form.get(campo.nombre)?.hasError('min')">
                         El valor debe ser mayor o igual a {{ form.get(campo.nombre)?.errors?.['min'].min }}
+                    </mat-error>
+                    <mat-error *ngIf="form.get(campo.nombre)?.touched && form.get(campo.nombre)?.hasError('email')">
+                        Correo electrónico no válido
                     </mat-error>
                 </mat-form-field>
             </div>

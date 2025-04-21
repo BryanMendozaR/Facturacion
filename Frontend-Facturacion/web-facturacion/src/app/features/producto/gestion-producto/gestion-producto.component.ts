@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
-import {Botones} from '../../../../core/models/botones-barra.interface';
-import {Cabecera} from '../../../../core/models/cabecera.interface';
-import {ConfiguracionTabla} from '../../../../core/models/configuracion-tabla.interface';
-import {DatosProductos} from '../../../../core/models/datos-producto.interface';
-import {EditarProducto} from '../../../../core/models/editar-producto.interface';
-import {AgregarProducto} from '../../../../core/models/insertar-producto.interface';
-import {ServicioMensaje} from '../../../../core/services/message.service';
-import {ProductoService} from '../../../../data/services/producto.service';
-import {ModalComponent} from '../../../../shared/components/modal/modal.component';
+import {Botones} from '../../../core/models/botones-barra.interface';
+import {Cabecera} from '../../../core/models/cabecera.interface';
+import {ConfiguracionTabla} from '../../../core/models/configuracion-tabla.interface';
+import {DatosProductos} from '../../../core/models/datos-producto.interface';
+import {EditarProducto} from '../../../core/models/editar-producto.interface';
+import {AgregarProducto} from '../../../core/models/insertar-producto.interface';
+import {ServicioMensaje} from '../../../core/services/message.service';
+import {ProductoService} from '../../../data/services/producto.service';
+import {ModalComponent} from '../../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-gestion-producto',

@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <app-barra titulo="{{titulo}}" [elementos]="botones"></app-barra>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <app-table [cabeceras]="headers" [respuesta]="clientes" (editar)="editar($event)"
+                            (eliminar)="eliminar($event)" (cambioPagina)="buscarCambiarPagina($event)"
+                            (cambiarBusqueda)="buscarCambiarPagina($event)">
+                        </app-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-modal-confirmacion [titulo]="'Eliminar Cliente'" [tamano]="'medium'" [isVisible]="modalConfirmacion"
+    (confirmarModal)="confirmarEliminacion()" (cerrarModal)="cerrarModalConfirmacion()">
+    <p>¿Está seguro que desea eliminar el cliente <strong>{{ clienteNombre}}</strong>?</p>
+</app-modal-confirmacion>
